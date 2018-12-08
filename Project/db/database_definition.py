@@ -50,27 +50,34 @@ def create_table(sql):
 def delete_all_rows():
     get_db().cursor().execute('delete from users')
 
-def insert_to_tags_from_sample():
-    with open(os.path.join("samples",'tags_sample.txt')) as f:
+def insert_to_users_from_sample():
+    with open(os.path.join("samples",'users_sample.txt')) as f:
         for line in f:
-            (sound_id,name)=list(map(lambda x:x.strip(),line.split(';')))
-            get_db().cursor().execute('insert into tags values(?,?)',(sound_id,name))
-            get_db().commit()
+            (id,joined_at,nickname)=list(map(lambda x:x.strip(),line.split(';')))
+            get_db().cursor().execute('insert into users values(?,?,?)',(id,joined_at,nickname))
+        get_db().commit()
 
 def insert_to_tags_from_sample():
     with open(os.path.join("samples",'tags_sample.txt')) as f:
         for line in f:
             (sound_id,name)=list(map(lambda x:x.strip(),line.split(';')))
             get_db().cursor().execute('insert into tags values(?,?)',(sound_id,name))
-            get_db().commit()
-            
+        get_db().commit()
+
+def insert_to_sounds_from_sample():
+    with open(os.path.join("samples",'sounds_sample.txt')) as f:
+        for line in f:
+            (id,name,blob_path,_2,_3,_4,owner_id)=list(map(lambda x:x.strip(),line.split(';')))
+            with open(os.path.join('sound_samples',blob_path+'.mp3'), 'rb') as fl:
+                data = fl.read()
+            get_db().cursor().execute('insert into sounds(id,name,data,owner_id) values(?,?,?,?)',(id,name,sqlite3.Binary(data),owner_id))
+        get_db().commit()
+
 if __name__ == '__main__':
     cursor = get_db().cursor()
-    insert_to_tags_from_sample()
-    result = cursor.execute('select * from tags').fetchall()
-    # get_db().commit()
-    # TO INSERT SOUND:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: sqlite3.Binary(file)
-    print(result)
+    results = cursor.execute('select * from users').fetchall()
+    for result in results:
+        print(result)
     close_connection()
 
 

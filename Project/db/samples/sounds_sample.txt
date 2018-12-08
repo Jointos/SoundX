@@ -1,5 +1,5 @@
-1;Thug Life;;;;;1
-2;Good, Bad and the Ugly;;;;;2
-3;Lightsaber on;;;;;3
-4;Over 9000;;;;;4
-5;Benny Hill theme;;;;;4
+1;Thug Life;thug_life;;;;1
+2;Good, Bad and the Ugly;good_bad_and_the_ugly;;;;2
+3;Lightsaber on;lightsaber_on;;;;3
+4;Over 9000;over_9000;;;;4
+5;Benny Hill theme;benny_hill;;;;4
