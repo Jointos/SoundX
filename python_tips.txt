@@ -1,0 +1,2 @@
+#UNPACK_LIST
+(name,*_ )=list(map(lambda x:x.strip(),line.split(';')))
